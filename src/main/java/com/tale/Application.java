@@ -1,21 +1,16 @@
 package com.tale;
 
-import com.blade.Blade;
-import com.blade.security.web.csrf.CsrfMiddleware;
-import com.blade.validator.ValidatorMiddleware;
-import com.tale.init.TaleLoader;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
-/**
- * Tale启动类
- *
- * @author biezhi
- */
-public class Application {
-
-    public static void main(String[] args) throws Exception {
-        Blade blade = Blade.me();
-        TaleLoader.init(blade);
-        blade.use(new ValidatorMiddleware(), new CsrfMiddleware()).start(Application.class, args);
+@SpringBootApplication
+public class Application extends SpringBootServletInitializer {
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
     }
-
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(Application.class, args);
+    }
 }
